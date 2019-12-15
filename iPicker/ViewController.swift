@@ -16,7 +16,7 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate , UINav
         super.viewDidLoad()
                 Scroll.delegate = self
         Scroll.minimumZoomScale = 1.0
-        Scroll.maximumZoomScale = 6.0
+        Scroll.maximumZoomScale = 100.0
     }
     @IBAction func Importer(_ sender: Any) {
         let image = UIImagePickerController()
