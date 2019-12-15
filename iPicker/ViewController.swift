@@ -8,13 +8,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController , UIImagePickerControllerDelegate , UINavigationControllerDelegate , UIScrollViewDelegate {
+    @IBOutlet weak var Scroll: UIScrollView!
+    @IBOutlet weak var myImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+                Scroll.delegate = self
+        Scroll.minimumZoomScale = 1.0
+        Scroll.maximumZoomScale = 6.0
     }
-
-
+    @IBAction func Importer(_ sender: Any) {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.photoLibrary
+        image.allowsEditing = true
+        self.present(image , animated: true)
+    }
+    
+    @IBAction func CameraUse(_ sender: Any) {
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerController.SourceType.camera
+        image.allowsEditing = true
+        self.present(image , animated: true)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            myImageView.image = image
+        }
+        else{}
+        self.dismiss(animated: true, completion: nil)
+    }
+    func viewForZooming(in Scroll : UIScrollView) -> UIView? {
+        return self.myImageView
+    }
+    
 }
 
